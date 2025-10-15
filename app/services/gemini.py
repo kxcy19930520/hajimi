@@ -200,6 +200,7 @@ class GeminiClient:
         safety_settings,
         system_instruction,
     ):
+# ------------------ 正确的代码段（请替换掉上面那段） ------------------
         config_params = {
             "temperature": request.temperature,
             "maxOutputTokens": request.max_tokens,
@@ -212,6 +213,12 @@ class GeminiClient:
             else None,
             "candidateCount": request.n,
         }
+
+        # --- MAX_TOKENS 修复代码 (此处是正确插入的位置) ---
+        # 如果请求中未指定 max_tokens，则设置一个高默认值
+        if config_params["maxOutputTokens"] is None:
+            config_params["maxOutputTokens"] = 8192  # 推荐设置为 8192 或更高
+        # ----------------------------------------------------
         thinking_config = {}
         if settings.ENABLE_THINKING:
             if request.thinking_budget is not None:
